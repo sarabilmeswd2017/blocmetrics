@@ -3,17 +3,14 @@ class RegisteredApplicationsController < ApplicationController
     @registered_applications = current_user.registered_applications
   end
 
-  def show
-    @registered_application = RegisteredApplication.find(params[:id])
-  end
 
   def new
     @registered_application = RegisteredApplication.new
   end
 
   def create
-    @registered_applications = current_user.registered_applications.new(registered_application_params)
-    if @registered_applications.save
+    @registered_application = current_user.registered_applications.new(registered_application_params)
+    if @registered_application.save
       flash[:notice] = "Application was saved."
         redirect_to registered_applications_path
     else
@@ -24,7 +21,7 @@ class RegisteredApplicationsController < ApplicationController
 
   def destroy
     @registered_application = RegisteredApplication.find(params[:id])
-    if @registered_applications.destroy
+    if @registered_application.destroy
       flash[:notice] = "Application was deleted successfully."
     else
       flash.now[:alert] = "There was an error deleting the wiki."
