@@ -22,7 +22,14 @@ class RegisteredApplicationsController < ApplicationController
     end
   end
 
-  def edit
+  def delete
+    @registered_applications = RegisteredApplication.find(params[:id])
+    if @registered_applications.destroy
+      flash[:notice] = "\"#{@registered_application.name}\" was deleted successfully."
+    else
+      flash.now[:alert] = "There was an error deleting the wiki."
+      render registered_applications_path
+    end
   end
 
   private
