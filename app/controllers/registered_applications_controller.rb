@@ -4,11 +4,11 @@ class RegisteredApplicationsController < ApplicationController
   end
 
   def show
-    @registered_applications = RegisteredApplication.find(params[:id])
+    @registered_application = RegisteredApplication.find(params[:id])
   end
 
   def new
-    @registered_applications = RegisteredApplication.new
+    @registered_application = RegisteredApplication.new
   end
 
   def create
@@ -22,10 +22,10 @@ class RegisteredApplicationsController < ApplicationController
     end
   end
 
-  def delete
-    @registered_applications = RegisteredApplication.find(params[:id])
+  def destroy
+    @registered_application = RegisteredApplication.find(params[:id])
     if @registered_applications.destroy
-      flash[:notice] = "\"#{@registered_application.name}\" was deleted successfully."
+      flash[:notice] = "Application was deleted successfully."
     else
       flash.now[:alert] = "There was an error deleting the wiki."
       render registered_applications_path
@@ -34,7 +34,7 @@ class RegisteredApplicationsController < ApplicationController
 
   private
 
-  def item_params
+  def registered_application_params
     params.require(:registered_application).permit(:name, :url, :user)
   end
 end
