@@ -12,7 +12,8 @@ class RegisteredApplicationsController < ApplicationController
     @registered_application = current_user.registered_applications.new(registered_application_params)
     if @registered_application.save
       flash[:notice] = "Application was saved."
-        redirect_to registered_applications_path
+        redirect_to root_path
+
     else
       flash[:alert] = "There was an error saving your application."
         render :new
@@ -25,7 +26,7 @@ class RegisteredApplicationsController < ApplicationController
       flash[:notice] = "Application was deleted successfully."
     else
       flash.now[:alert] = "There was an error deleting the wiki."
-      render registered_applications_path
+      redirect_to root_path
     end
   end
 
