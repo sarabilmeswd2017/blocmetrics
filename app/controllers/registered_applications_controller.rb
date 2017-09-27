@@ -26,8 +26,8 @@ class RegisteredApplicationsController < ApplicationController
       flash[:notice] = "Application was deleted successfully."
     else
       flash.now[:alert] = "There was an error deleting the wiki."
-      redirect_to root_path
     end
+    redirect_to root_path
   end
 
   private
