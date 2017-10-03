@@ -3,8 +3,10 @@ class API::EventsController < ApplicationController
 
   before_filter :set_access_control_headers
 
+  skip_before_action :authenticate_user!
+
    def set_access_control_headers
- 
+
      headers['Access-Control-Allow-Origin'] = '*'
 
      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
@@ -14,8 +16,8 @@ class API::EventsController < ApplicationController
 
    def create
      registered_application = RegisteredApplication.find_by(url: request.env['HTTP_ORIGIN'])
-     if registered_application = nil
-       render json: "Unregistered application", status: :unprocessable_entity
+     if registered_application.nil?
+       return render json: "Unregistered application", status: :unprocessable_entity
      else
        @event = registered_application.events.new(event_params)
        if @event.save
@@ -36,5 +38,3 @@ class API::EventsController < ApplicationController
      params.require(:event).permit(:name)
    end
 end
-
-@wiki = current_user.wikis.new(wiki_params)
