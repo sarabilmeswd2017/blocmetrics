@@ -22,6 +22,7 @@ source 'https://rubygems.org'
  gem 'figaro'
  gem 'devise'
  gem 'faker'
+ gem "chartkick"
 
  group :development, :test do
    gem 'byebug'
