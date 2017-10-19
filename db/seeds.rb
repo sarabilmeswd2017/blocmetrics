@@ -25,11 +25,12 @@ users = User.all
 end
 registered_applications = RegisteredApplication.all
 
-25.times do
-  Event.create(
+100.times do
+  e = Event.create(
     name: Faker::Name.name,
     registered_application: registered_applications.sample
   )
+  e.update(created_at: (Time.now - rand(3..7).days))
 end
 
 puts "Seed finished"
